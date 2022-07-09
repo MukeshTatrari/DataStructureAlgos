@@ -4,8 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -332,9 +330,56 @@ public class ListNode {
     public void removeLoop(ListNode head, ListNode slowPtr) {
         ListNode temp = head;
         while (temp.next != slowPtr.next) {
-            head = head.next;
+            temp = temp.next;
             slowPtr = slowPtr.next;
         }
         slowPtr.next = null;
+    }
+
+    public ListNode mergeLinkedList(ListNode listA, ListNode listB) {
+
+        ListNode dummy = new ListNode(0);
+        ListNode tail = dummy;
+        while (listA != null && listB != null) {
+            if (listA.data <= listB.data) {
+                tail.next = listA;
+                listA = listA.next;
+            } else {
+                tail.next = listB;
+                listB = listB.next;
+            }
+            tail = tail.next;
+        }
+        if (listA == null) {
+            tail.next = listB;
+        } else {
+            tail.next = listA;
+        }
+        return dummy.next;
+    }
+
+    public ListNode addLists(ListNode a, ListNode b) {
+        ListNode dummy = new ListNode(0);
+        ListNode tail = dummy;
+        int carry = 0;
+        while (a != null || b != null) {
+            int x = (a != null) ? a.data : 0;
+            int y = (b != null) ? b.data : 0;
+            int sum = carry + x + y;
+            carry = sum / 10;
+            tail.next = new ListNode(sum % 10);
+            tail = tail.next;
+            if (a != null) {
+                a = a.next;
+            }
+            if (b != null) {
+                b = b.next;
+            }
+        }
+        if(carry>0){
+            tail.next = new ListNode(carry);
+        }
+
+        return dummy.next;
     }
 }

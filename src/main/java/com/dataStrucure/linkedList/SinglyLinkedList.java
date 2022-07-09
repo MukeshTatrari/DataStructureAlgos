@@ -56,5 +56,29 @@ public class SinglyLinkedList {
         System.out.println("starting Node of the loop :: " + ls.startingNodeOfLoop(singlyLinkedList.head).data);
         ls.removeLoopIfPresent(singlyLinkedList.head);
         ls.print(singlyLinkedList.head);
+
+        ListNode A1 = new ListNode(4);
+        ListNode A2 = new ListNode(7);
+        ListNode A3 = new ListNode(8);
+        A1.next = A2;
+        A2.next = A3;
+
+        ListNode B1 = new ListNode(2);
+        ListNode B2 = new ListNode(5);
+        ListNode B3 = new ListNode(6);
+        ListNode B4 = new ListNode(9);
+        B1.next = B2;
+        B2.next = B3;
+        B3.next = B4;
+
+        ls.print(A1);
+        ls.print(B1);
+
+//        ListNode merged = ls.mergeLinkedList(A1, B1);
+//        ls.print(merged);
+
+        ListNode sum = ls.addLists(A1, B1);
+        ls.print(sum);
+
     }
 }
