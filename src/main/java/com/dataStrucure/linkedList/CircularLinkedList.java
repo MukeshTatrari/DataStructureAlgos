@@ -103,7 +103,7 @@ public class CircularLinkedList {
                 temp = temp.next;
             }
             temp.next = temp.next.next;
-            last =temp;
+            last = temp;
 
         }
     }
