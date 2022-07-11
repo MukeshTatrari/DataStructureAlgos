@@ -1,5 +1,8 @@
 package com.dataStrucure.arrays;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ArrayExample {
 
     public static void main(String args[]) {
@@ -21,6 +24,8 @@ public class ArrayExample {
         System.out.println("data1  " + data1);
 
         System.out.println("is palindrome ::: " + arrayExample.checkPalindrom(new String[]{"m", "p", "d", "a", "m"}));
+        int[] twoSum = arrayExample.twoSumProblem(new int[]{1, 2, 3, 5, 6, 7, 8, 9, 10}, 8);
+        arrayExample.print(twoSum);
     }
 
 
@@ -108,5 +113,26 @@ public class ArrayExample {
             end--;
         }
         return true;
+    }
+
+    public int[] twoSumProblem(int[] arr, int target) {
+        int[] result = new int[2];
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < arr.length - 1; i++) {
+            if (!map.containsKey(target - arr[i])) {
+                map.put(arr[i], i);
+            } else {
+                result[1] = i;
+                result[0] = map.get(target - arr[i]);
+            }
+        }
+
+        return result;
+    }
+
+    public int[] mergeTwoSortedArray(int arr[], int arr1[]) {
+        int[] merged = new int[arr.length + arr1.length];
+
+        return merged;
     }
 }
