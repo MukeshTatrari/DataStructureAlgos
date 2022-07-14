@@ -1,6 +1,7 @@
 package com.dataStrucure.stack;
 
 
+import java.util.Arrays;
 import java.util.EmptyStackException;
 import java.util.NoSuchElementException;
 
@@ -56,6 +57,38 @@ public class Stack {
         return length == 0;
     }
 
+    public String reverse(String str) {
+        java.util.Stack<Character> stacks = new java.util.Stack<Character>();
+        char[] chars = str.toCharArray();
+        for (char c : chars) {
+            stacks.push(c);
+
+        }
+        for (int i = 0; i < str.length(); i++) {
+            chars[i] = stacks.pop();
+        }
+
+        return new String(chars);
+    }
+
+    private int[] nextGreaterElement(int arr[]) {
+        int[] result = new int[arr.length];
+        java.util.Stack<Integer> integerStack = new java.util.Stack<Integer>();
+        for (int i = arr.length - 1; i >= 0; i--) {
+            if (!integerStack.isEmpty()) {
+                while (!integerStack.isEmpty() && (integerStack.peek() < arr[i])) {
+                    integerStack.pop();
+                }
+            }
+            if (integerStack.isEmpty()) {
+                result[i] = -1;
+            } else {
+                result[i] = integerStack.peek();
+            }
+            integerStack.push(arr[i]);
+        }
+        return result;
+    }
 
     public static void main(String[] args) {
 
@@ -64,11 +97,21 @@ public class Stack {
         stack.push(15);
         stack.push(20);
 
-        int peek= stack.peek();
-        System.out.println("peek ::: "+peek);
+        int peek = stack.peek();
+        System.out.println("peek ::: " + peek);
         int pop = stack.pop();
-        System.out.println("pop ::: "+pop);
-        int peek1= stack.peek();
-        System.out.println("peek ::: "+peek1);
+        System.out.println("pop ::: " + pop);
+        int peek1 = stack.peek();
+        System.out.println("peek ::: " + peek1);
+
+        String reverse = stack.reverse("mukesh");
+        System.out.println("reverse ::: " + reverse);
+        int[] data = new int[]{3, 5, 6, 3, 4, 5, 9, 10, 1};
+        int[] data1 = stack.nextGreaterElement(data);
+        for (int i = 0; i < data1.length; i++) {
+            System.out.print(data1[i] + " , ");
+        }
+
+
     }
 }
