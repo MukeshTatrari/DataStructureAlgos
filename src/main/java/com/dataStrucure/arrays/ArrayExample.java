@@ -35,8 +35,9 @@ public class ArrayExample {
 //        int max = arrayExample.findMaxOfSubArrays(new int[]{4, 3, -2, 6, -12, 7, -1, 6});
 //        System.out.println("max of sub array ::: " + max);
         int[] arr3 = new int[]{-4, -5, 6, 7, 8, -9, -3, 10};
-        arr3= arrayExample.sortedSquareArray(arr3);
+        arr3 = arrayExample.sortedSquareArray(arr3);
         arrayExample.print(arr3);
+        arrayExample.getFirstNonRepeatingCharacter("abcabde");
     }
 
 
@@ -214,7 +215,7 @@ public class ArrayExample {
         int n = arr.length;
         int[] result = new int[n];
         int i = 0, j = n - 1;
-        for (int k = 0; k <n; k++) {
+        for (int k = 0; k < n; k++) {
             if (Math.abs(arr[i]) < Math.abs(arr[j])) {
                 result[k] = arr[i] * arr[i];
                 i++;
@@ -224,5 +225,23 @@ public class ArrayExample {
             }
         }
         return result;
+    }
+
+    public int getFirstNonRepeatingCharacter(String str) {
+        Map<Character, Integer> map = new HashMap<>();
+        char[] arr = str.toCharArray();
+        for (int i = 0; i < arr.length; i++) {
+            char c = arr[i];
+            map.put(c, map.getOrDefault(c, 0) + 1);
+        }
+        for (int i = 0; i < arr.length; i++) {
+            if (map.get(arr[i]) == 1) {
+                System.out.println("first non repeating char is ::: "
+                        + arr[i] + "  and is present at location :: " + i);
+                return i;
+            }
+        }
+
+        return -1;
     }
 }
