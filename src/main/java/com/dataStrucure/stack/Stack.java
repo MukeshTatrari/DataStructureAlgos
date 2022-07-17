@@ -1,7 +1,6 @@
 package com.dataStrucure.stack;
 
 
-import java.util.Arrays;
 import java.util.EmptyStackException;
 import java.util.NoSuchElementException;
 
@@ -90,6 +89,65 @@ public class Stack {
         return result;
     }
 
+    public boolean isValid(String string) {
+        char[] input = string.toCharArray();
+        java.util.Stack<Character> stacks = new java.util.Stack<Character>();
+        for (char c : input) {
+            if (c == '(' || c == '{' || c == '}') {
+                stacks.push(c);
+            } else {
+                if (stacks.isEmpty()) {
+                    return false;
+                } else {
+                    char top = stacks.peek();
+                    if ((c == ')' && top == '(')
+                            || (c == '}' && top == '{')
+                            || (c == ']' && top == '[')) {
+                        stacks.pop();
+                    }
+                }
+            }
+        }
+
+        return stacks.isEmpty();
+    }
+
+    public boolean isSymetric(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        java.util.Stack<TreeNode> stack = new java.util.Stack<>();
+        stack.push(root.right);
+        stack.push(root.left);
+        while (!stack.isEmpty()) {
+            TreeNode n1 = stack.pop();
+            TreeNode n2 = stack.pop();
+            if (n1 == null && n2 == null) {
+                continue;
+            }
+            if (n1 == null || n2 == null || n1.data != n2.data) {
+                return false;
+            }
+            stack.push(n1.left);
+            stack.push(n2.right);
+            stack.push(n2.left);
+            stack.push(n1.right);
+        }
+
+
+        return true;
+    }
+
+    private class TreeNode {
+        private int data; // Generic type
+        private TreeNode left;
+        private TreeNode right;
+
+        public TreeNode(int data) {
+            this.data = data;
+        }
+    }
+
     public static void main(String[] args) {
 
         Stack stack = new Stack();
@@ -111,6 +169,9 @@ public class Stack {
         for (int i = 0; i < data1.length; i++) {
             System.out.print(data1[i] + " , ");
         }
+
+        boolean isValid = stack.isValid("(())}{");
+        System.out.println("isValid ::: " + isValid);
 
 
     }
