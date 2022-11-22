@@ -1,5 +1,13 @@
 package com.dataStrucure.trees;
 
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
+
+
+@Slf4j
 public class BinaryTree {
     private TreeNode rootNode;
 
@@ -17,6 +25,15 @@ public class BinaryTree {
         System.out.print("postOrder Traversal ");
         tree.postOderTraversal(tree.rootNode);
         System.out.print("\n");
+
+        tree.preOrderTraversalUsingStack(tree.rootNode);
+        System.out.print("\n");
+        tree.inOrderTraversalUsingStack(tree.rootNode);
+        System.out.print("\n");
+//        tree.postOrderTraversalUsingStack(tree.rootNode);
+
+        log.info("level order traversal ::: ");
+        tree.levelOrderTraverSal(tree.rootNode);
     }
 
     public void createBinaryTree() {
@@ -57,21 +74,94 @@ public class BinaryTree {
         preOderTraversal(rootNode.right);
     }
 
+    public void preOrderTraversalUsingStack(TreeNode rootNode) {
+        if (rootNode == null) {
+            return;
+        }
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(rootNode);
+        while (!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+            System.out.print("  root ::: " + node.data);
+            if (node.right != null) {
+                stack.push(node.right);
+            }
+            if (node.left != null) {
+                stack.push(node.left);
+            }
+        }
+    }
+
+    public void inOrderTraversalUsingStack(TreeNode rootNode) {
+        if (rootNode == null) {
+            return;
+        }
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode temp = rootNode;
+        while (!stack.isEmpty() || temp != null) {
+            if (temp != null) {
+                stack.push(temp);
+                temp = temp.left;
+            } else {
+                temp = stack.pop();
+                System.out.print("  root :: " + temp.data);
+                temp = temp.right;
+            }
+        }
+    }
+
+    public void postOrderTraversalUsingStack(TreeNode rootNode) {
+        if (rootNode == null) {
+            return;
+        }
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode temp = rootNode;
+        while (temp != null || !stack.isEmpty()) {
+            if (temp != null) {
+                stack.push(temp);
+                temp = temp.left;
+            } else {
+                temp = stack.pop();
+                temp = temp.right;
+                System.out.print("  root :: " + temp.data);
+            }
+        }
+    }
+
+
     public void inOderTraversal(TreeNode rootNode) {
         if (rootNode == null) {
             return;
         }
-        preOderTraversal(rootNode.left);
+        inOderTraversal(rootNode.left);
         System.out.print("  root :: " + rootNode.data);
-        preOderTraversal(rootNode.right);
+        inOderTraversal(rootNode.right);
     }
 
     public void postOderTraversal(TreeNode rootNode) {
         if (rootNode == null) {
             return;
         }
-        preOderTraversal(rootNode.left);
-        preOderTraversal(rootNode.right);
+        postOderTraversal(rootNode.left);
+        postOderTraversal(rootNode.right);
         System.out.print("  root :: " + rootNode.data);
+    }
+
+    public void levelOrderTraverSal(TreeNode rootNode) {
+        if (rootNode == null) {
+            return;
+        }
+        Queue<TreeNode> queue = new LinkedList<TreeNode>();
+        queue.offer(rootNode);
+        if (!queue.isEmpty()) {
+            TreeNode node = queue.poll();
+            System.out.print("Node :: " + node.data);
+            if (node.left != null) {
+                queue.offer(node.left);
+            }
+            if (node.right != null) {
+                queue.offer(node.right);
+            }
+        }
     }
 }
